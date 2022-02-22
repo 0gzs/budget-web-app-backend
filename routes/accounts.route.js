@@ -1,5 +1,5 @@
-import express from 'express';
-import { 
+const express = require('express');
+const { 
     addTransaction, 
     decrementAccountBalance, 
     deleteAccount, 
@@ -8,8 +8,8 @@ import {
     incrementAccountBalance, 
     setAccounts, 
     updateAccount 
-} from '../controllers/accounts.controller.js';
-import { protect } from '../middleware/authMiddleware.js';
+} = require('../controllers/accounts.controller');
+const { protect } = require('../middleware/authMiddleWare');
 
 const router = express.Router();
 
@@ -19,4 +19,4 @@ router.route("/:id/add/transaction").put(protect, addTransaction);
 router.route("/:id/inc/balance").put(protect, incrementAccountBalance);
 router.route("/:id/dec/balance").put(protect, decrementAccountBalance);
 
-export default router;
+module.exports = router;

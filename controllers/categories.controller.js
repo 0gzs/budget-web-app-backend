@@ -1,12 +1,11 @@
-import asyncHandler from 'express-async-handler';
-
-import Category from '../models/category.model.js';
-import User from '../models/user.model.js';
+const asyncHandler = require('express-async-handler');
+const Category = require('../models/category.model')
+const User = require('../models/user.model');
 
 // @desc    Get categories
 // @route   GET /api/v1/categories
 // @access  Private
-export const getCategories = asyncHandler(async (req, res) => {
+const getCategories = asyncHandler(async (req, res) => {
   const categories = await Category.find({ user: req.user.id });
  
   res.status(200).json(categories);
@@ -15,7 +14,7 @@ export const getCategories = asyncHandler(async (req, res) => {
 // @desc    Set categories
 // @route   POST /api/v1/categories
 // @access  Private
-export const setCategories = asyncHandler(async (req, res) => {
+const setCategories = asyncHandler(async (req, res) => {
   const { name, icon, color } = req.body;
 
   if (!name && !icon && !color) {
@@ -37,7 +36,7 @@ export const setCategories = asyncHandler(async (req, res) => {
 // @desc    Update category
 // @route   PUT /api/v1/categories/:id
 // @access  Private
-export const updateCategory = asyncHandler(async (req, res) => {
+const updateCategory = asyncHandler(async (req, res) => {
   const category = await Category.findById(req.params.id);
 
   if (!category) {
@@ -67,7 +66,7 @@ export const updateCategory = asyncHandler(async (req, res) => {
 // @desc    Update category
 // @route   PUT /api/v1/categories/:id/inc/amount
 // @access  Private
-export const incrementCategoryAmount = asyncHandler(async (req, res) => {
+const incrementCategoryAmount = asyncHandler(async (req, res) => {
   const category = await Category.findById(req.params.id);
 
   if (!category) {
@@ -96,7 +95,7 @@ export const incrementCategoryAmount = asyncHandler(async (req, res) => {
 // @desc    Update category
 // @route   PUT /api/v1/categories/:id/dec/amount
 // @access  Private
-export const decrementCategoryAmount = asyncHandler(async (req, res) => {
+const decrementCategoryAmount = asyncHandler(async (req, res) => {
   const category = await Category.findById(req.params.id);
 
   if (!category) {
@@ -125,7 +124,7 @@ export const decrementCategoryAmount = asyncHandler(async (req, res) => {
 // @desc    Delete category
 // @route   DELETE /api/v1/categories/:id
 // @access  Private
-export const deleteCategory = asyncHandler(async (req, res) => {
+const deleteCategory = asyncHandler(async (req, res) => {
   const category = await Category.findById(req.params.id);
 
   if (!category) {
@@ -149,3 +148,12 @@ export const deleteCategory = asyncHandler(async (req, res) => {
 
   res.status(200).json({ id: req.params.id });
 })
+
+module.exports = {
+  getCategories,
+  setCategories,
+  updateCategory,
+  deleteCategory,
+  decrementCategoryAmount,
+  incrementCategoryAmount
+}

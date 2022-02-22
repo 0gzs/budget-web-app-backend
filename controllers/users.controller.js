@@ -1,12 +1,12 @@
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
-import asyncHandler from 'express-async-handler';
-import User from '../models/user.model.js';
+const jwt = require('jsonwebtoken');
+const asyncHandler = require('express-async-handler');
+const bcrypt = require('bcryptjs');
+const User = require('../models/user.model');
 
 // @desc    Register new user
 // @route   POST /api/v1/users
 // @access  Public
-export const registerUser = asyncHandler(async (req, res) => {
+const registerUser = asyncHandler(async (req, res) => {
     const { username, email, password } = req.body;
 
     if (!username || !email || !password) {
@@ -49,7 +49,7 @@ export const registerUser = asyncHandler(async (req, res) => {
 // @desc    Authenticate a user
 // @route   POST /api/user/login
 // @access  Public
-export const loginUser = asyncHandler(async (req, res) => {
+const loginUser = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
 
     // Check for user email
@@ -71,7 +71,7 @@ export const loginUser = asyncHandler(async (req, res) => {
 // @desc    Get user data
 // @route   GET /api/v1/users/me
 // @access  Private
-export const getMe = asyncHandler(async (req, res) => {
+const getMe = asyncHandler(async (req, res) => {
   const { _id, username, email } = await User.findById(req.user.id);
 
   res.status(200).json({
@@ -87,3 +87,9 @@ const generateToken = (id) => {
         expiresIn: '30d',
     });
 }
+
+module.exports = {
+    registerUser,
+    loginUser,
+    getMe
+};

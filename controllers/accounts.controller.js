@@ -1,11 +1,11 @@
-import asyncHandler from 'express-async-handler';
-import Account from '../models/account.model.js';
-import User from '../models/user.model.js';
+const asyncHandler = require('express-async-handler');
+const Account = require('../models/account.model');
+const User = require('../models/user.model');
 
 // @desc    Get accounts
 // @route   GET /api/v1/accounts
 // @access  Private
-export const getAccounts = asyncHandler(async (req, res) => {
+const getAccounts = asyncHandler(async (req, res) => {
   const accounts = await Account.find({ user: req.user.id });
   
   res.status(200).json(accounts);
@@ -14,7 +14,7 @@ export const getAccounts = asyncHandler(async (req, res) => {
 // @desc    Set account
 // @route   POST /api/v1/accounts
 // @access  Private
-export const setAccounts = asyncHandler(async (req, res) => {
+const setAccounts = asyncHandler(async (req, res) => {
   const { name, balance, type } = req.body;
 
   if (!name  && !balance && !type) {
@@ -35,7 +35,7 @@ export const setAccounts = asyncHandler(async (req, res) => {
 // @desc    Get account
 // @route   GET /api/v1/accounts/:id
 // @access  Private
-export const getOneAccount = async (req, res) => {
+const getOneAccount = async (req, res) => {
   const account = await Account.findById(req.params.id);
 
   if (!account) {
@@ -49,7 +49,7 @@ export const getOneAccount = async (req, res) => {
 // @desc    Update account
 // @route   PUT /api/v1/accounts/:id
 // @access  Private
-export const updateAccount = asyncHandler(async (req, res) => {
+const updateAccount = asyncHandler(async (req, res) => {
   const account = await Account.findById(req.params.id);
 
   if (!account) {
@@ -79,7 +79,7 @@ export const updateAccount = asyncHandler(async (req, res) => {
 // @desc    Add account transaction
 // @route   Put /api/v1/accounts/:id/add/transaction
 // @access  Private
-export const addTransaction = asyncHandler(async (req, res) => {
+const addTransaction = asyncHandler(async (req, res) => {
   const account = await Account.findById(req.params.id);
 
   if (!account) {
@@ -108,7 +108,7 @@ export const addTransaction = asyncHandler(async (req, res) => {
 // @desc    Update (+) account balance
 // @route   PUT /api/v1/accounts/:id/inc/balance
 // @access  Private
-export const incrementAccountBalance = asyncHandler(async (req, res) => {
+const incrementAccountBalance = asyncHandler(async (req, res) => {
   const account = await Account.findById(req.params.id);
 
   if (!account) {
@@ -137,7 +137,7 @@ export const incrementAccountBalance = asyncHandler(async (req, res) => {
 // @desc    Update (-) account balance
 // @route   PUT /api/v1/accounts/:id/dec/balance
 // @access  Private
-export const decrementAccountBalance = asyncHandler(async (req, res) => {
+const decrementAccountBalance = asyncHandler(async (req, res) => {
   const account = await Account.findById(req.params.id);
 
   if (!account) {
@@ -166,7 +166,7 @@ export const decrementAccountBalance = asyncHandler(async (req, res) => {
 // @desc    Delete goal
 // @route   DELETE /api/v1/accounts/:id
 // @access  Private
-export const deleteAccount = asyncHandler(async (req, res) => {
+const deleteAccount = asyncHandler(async (req, res) => {
   const account = await Account.findById(req.params.id);
 
   if (!account) {
@@ -191,3 +191,13 @@ export const deleteAccount = asyncHandler(async (req, res) => {
   res.status(200).json({ id: req.params.id });
 })
 
+module.exports = {
+  getAccounts,
+  setAccounts,
+  updateAccount,
+  decrementAccountBalance,
+  incrementAccountBalance,
+  deleteAccount,
+  addTransaction,
+  getOneAccount
+}

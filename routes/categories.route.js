@@ -1,14 +1,14 @@
-import express from 'express';
+const express =  require('express');
 
-import { 
+const { 
     decrementCategoryAmount, 
     getCategories, 
     incrementCategoryAmount, 
     setCategories, 
     updateCategory,
     deleteCategory
-} from '../controllers/categories.controller.js';
-import { protect } from '../middleware/authMiddleWare.js';
+} = require('../controllers/categories.controller');
+const { protect } = require('../middleware/authMiddleWare');
 
 const router = express.Router();
 
@@ -17,4 +17,4 @@ router.route("/:id").put(protect, updateCategory).delete(protect, deleteCategory
 router.route("/:id/inc/amount").put(protect, incrementCategoryAmount);
 router.route("/:id/dec/amount").put(protect, decrementCategoryAmount);
 
-export default router;
+module.exports = router;

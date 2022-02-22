@@ -1,11 +1,11 @@
-import asyncHandler from 'express-async-handler';
-import Transaction from "../models/transaction.model.js";
-import User from '../models/user.model.js';
+const asyncHandler = require('express-async-handler');
+const Transaction = require('../models/transaction.model')
+const User = require('../models/user.model');;
 
 // @desc    Get transactions
 // @route   GET /api/v1/transactions
 // @access  Private
-export const getTransactions = asyncHandler(async (req, res) => {
+const getTransactions = asyncHandler(async (req, res) => {
   const transactions = await Transaction.find({ user: req.user.id });
 
   res.status(200).json(transactions);
@@ -14,7 +14,7 @@ export const getTransactions = asyncHandler(async (req, res) => {
 // @desc    Set transactions
 // @route   POST /api/v1/transactions
 // @access  Private
-export const setTransactions = asyncHandler(async (req, res) => {
+const setTransactions = asyncHandler(async (req, res) => {
   const { description, date, amount, type, category, account } = req.body;
 
   if (!description && !date && !amount && !type && !category && !account ) {
@@ -38,7 +38,7 @@ export const setTransactions = asyncHandler(async (req, res) => {
 // @desc    Update transactions
 // @route   PUT /api/v1/transactions/:id
 // @access  Private
-export const updateTransaction = asyncHandler(async (req, res) => {
+const updateTransaction = asyncHandler(async (req, res) => {
   const transaction = await Transaction.findById(req.params.id);
 
   if (!transaction) {
@@ -68,7 +68,7 @@ export const updateTransaction = asyncHandler(async (req, res) => {
 // @desc    Delete transactions
 // @route   DELETE /api/v1/transactions/:id
 // @access  Private
-export const deleteTransaction = asyncHandler(async (req, res) => {
+const deleteTransaction = asyncHandler(async (req, res) => {
   const transaction = await Transaction.findById(req.params.id);
 
   if (!transaction) {
@@ -94,7 +94,7 @@ export const deleteTransaction = asyncHandler(async (req, res) => {
   res.status(200).json({ id: req.params.id });
 })
 
-export const deleteTransactions = asyncHandler(async (req, res) => {
+const deleteTransactions = asyncHandler(async (req, res) => {
   const transactions = await Transaction.find({ account: req.params.id });
 
   if (!transactions) {
@@ -115,3 +115,12 @@ export const deleteTransactions = asyncHandler(async (req, res) => {
 
   res.status(200).json({ id: req.params.id });
 })
+
+
+module.exports = {
+  getTransactions,
+  setTransactions,
+  updateTransaction,
+  deleteTransaction,
+  deleteTransactions
+};
