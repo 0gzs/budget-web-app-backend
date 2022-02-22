@@ -8,7 +8,7 @@ const {
     updateCategory,
     deleteCategory
 } = require('../controllers/categories.controller');
-const { protect } = require('../middleware/authMiddleWare');
+const { protect } = require('../middleware/authMiddleware');
 
 const router = express.Router();
 

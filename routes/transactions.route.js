@@ -6,7 +6,7 @@ const {
     setTransactions, 
     updateTransaction
 } = require('../controllers/transactions.controller');
-const { protect } = require('../middleware/authMiddleWare');
+const { protect } = require('../middleware/authMiddleware');
 
 const router = express.Router();
 

@@ -9,7 +9,7 @@ const {
     setAccounts, 
     updateAccount 
 } = require('../controllers/accounts.controller');
-const { protect } = require('../middleware/authMiddleWare');
+const { protect } = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
