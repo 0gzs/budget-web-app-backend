@@ -6,7 +6,7 @@ const User = require('../models/user.model');;
 // @route   GET /api/v1/transactions
 // @access  Private
 const getTransactions = asyncHandler(async (req, res) => {
-  const transactions = await Transaction.find({ user: req.user.id });
+  const transactions = await Transaction.find({ account: req.body.accountId });
 
   res.status(200).json(transactions);
 })
