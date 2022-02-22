@@ -2,7 +2,7 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "homepage": ".",
+  "homepage": "https://budget-this-backend.herokuapp.com",
   "main": "server.js",
   "engines": {
     "node": "16.14.x",
